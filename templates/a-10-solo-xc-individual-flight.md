@@ -1,0 +1,34 @@
+---
+title: Solo cross-country flight
+ac_reference: A.10
+regulation: § 61.93(c)(3)
+rating:
+  - student
+locals:
+  - date
+  - student:
+    - name
+    - limitations
+  - instructor:
+    - name
+    - cert_number
+    - cert_expiration
+  - aircraft:
+    - make
+    - model
+    - category
+  - flight:
+    - origin
+    - route
+    - landings_at
+
+---
+
+{{title}}: {{regulation}}.
+
+I have reviewed the cross-country planning of {{student.name}}. I find the planning and preparation to be correct to make the solo flight from {{flight.origin}} to {{flight.origin}} via {{flight.route}} with landings at {{flight.landings_at}} in a
+{{aircraft.make}} {{aircraft.model}} on {{date}}.
+
+Limitations: {{student.limitations}}
+
+{{date}} {{instructor.name}} {{instructor.cert_number}} Exp. {{instructor.cert_expiration}}

@@ -1,9 +1,7 @@
 ---
 title: Pre-solo aeronautical knowledge
 ac_reference: A.3
-regulation: 14CFR@61.87
-paragraph:
-  - (b)
+regulation: § 61.87(b)
 rating:
   - student
 locals:
@@ -19,6 +17,8 @@ locals:
     - make
     - model
 ---
+
+{{title}}: {{regulation}}.
 
 I certify that {{student.name}} has satisfactorily completed the pre-solo knowledge test of § 61.87(b) for the {{aircraft.make}} {{aircraft.model}}.
 
