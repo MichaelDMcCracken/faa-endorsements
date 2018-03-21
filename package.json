@@ -1,0 +1,33 @@
+{
+  "name": "faa-endorsements",
+  "version": "1.0.0",
+  "description": "An API implementation of FAA endorsements as found in AC 61-65G.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha",
+    "test:watch": "nodemon --watch index.js --watch tests/index.js --exec 'npm run test || true'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MichaelDMcCracken/faa-endorsements.git"
+  },
+  "contributors": [
+    "Michael McCracken <michael.mccracken172@gmail.com>",
+    "Ryan Burnette <ryan.burnette@gmail.com>"
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MichaelDMcCracken/faa-endorsements/issues"
+  },
+  "homepage": "https://github.com/MichaelDMcCracken/faa-endorsements#readme",
+  "devDependencies": {
+    "chai": "^4",
+    "mocha": "^5",
+    "nodemon": "^1",
+    "babel-core": "^6",
+    "babel-loader": "^7",
+    "babel-preset-env": "^1",
+    "uglifyjs-webpack-plugin": "^1",
+    "webpack": "^3"
+  }
+}
