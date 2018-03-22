@@ -5,8 +5,8 @@
   "main": "lib/faa-endorsements.js",
   "browser": "dist/faa-endorsements.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha tests/*.js --compilers js:babel-core/register",
-    "test:watch": "nodemon --watch src/*.js --watch tests/*.js --exec 'npm run test || true'"
+    "test": "node_modules/.bin/mocha tests/*.js --require babel-core/register",
+    "test:watch": "nodemon --watch index.js --watch tests/index.js --exec 'npm run test || true'"
   },
   "repository": {
     "type": "git",

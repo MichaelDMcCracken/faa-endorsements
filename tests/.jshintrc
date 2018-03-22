@@ -1,9 +1,5 @@
 {
-  "expr": true,
+  "esversion": 6,
   "node": true,
-  "asi": true,
-  "globals": {
-    "it": true,
-    "context": true
-  }
+  "asi": true
 }
