@@ -4,7 +4,7 @@
   "description": "An API implementation of FAA endorsements as found in AC 61-65G.",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha",
+    "test": "node_modules/.bin/mocha tests/*.js --require babel-core/register",
     "test:watch": "nodemon --watch index.js --watch tests/index.js --exec 'npm run test || true'"
   },
   "repository": {
