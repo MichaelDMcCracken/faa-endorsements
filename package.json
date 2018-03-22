@@ -5,8 +5,12 @@
   "main": "lib/faa-endorsements.js",
   "browser": "dist/faa-endorsements.js",
   "scripts": {
+
     "test": "node_modules/.bin/mocha tests/*.js --require babel-core/register",
     "test:watch": "nodemon --watch index.js --watch tests/index.js --exec 'npm run test || true'"
+    "webpack:lib:build": "node_modules/.bin/webpack --config config/webpack/lib.js",
+    "webpack:dist:build": "node_modules/.bin/webpack --config config/webpack/dist.js -p",
+    "prepare": "npm run webpack:lib:build && npm run webpack:dist:build"
   },
   "repository": {
     "type": "git",
@@ -32,5 +36,7 @@
     "uglifyjs-webpack-plugin": "^1",
     "webpack": "^3",
     "webpack-node-externals": "^1.6.0"
+  },
+  "dependencies": {
   }
 }

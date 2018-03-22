@@ -1,11 +1,10 @@
-/* jshint node: true, asi: true, esversion: 6 */
 const path = require('path')
-const nodeExternals = require('webpack-node-externals')
+const Uglify = require('uglifyjs-webpack-plugin')
 
 module.exports = {
-  entry: './lib/faa-endorsements.js',
+  entry: path.resolve(__dirname,'../../src/faa-endorsements.js'),
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname,'../../dist'),
     filename: 'faa-endorsements.js',
     library: 'FAAEndorsements',
     libraryExport: 'default',
@@ -15,13 +14,14 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
+        exclude: /(node_modules)/,
         use: {
           loader: 'babel-loader'
         }
       }
     ]
   },
-  target: 'node',
-  externals: [nodeExternals()]
+  plugins: [
+    new Uglify()
+  ]
 }
