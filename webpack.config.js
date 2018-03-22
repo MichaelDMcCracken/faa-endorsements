@@ -1,5 +1,6 @@
 /* jshint node: true, asi: true, esversion: 6 */
 const path = require('path')
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
   entry: './lib/faa-endorsements.js',
@@ -20,5 +21,7 @@ module.exports = {
         }
       }
     ]
-  }
+  },
+  target: 'node',
+  externals: [nodeExternals()]
 }
