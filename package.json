@@ -5,7 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/mocha",
-    "test:watch": "nodemon --watch index.js --watch tests/index.js --exec 'npm run test || true'"
+    "test:watch": "nodemon --watch index.js --watch tests/index.js --exec 'npm run test || true'",
+    "webpack:lib:build": "node_modules/.bin/webpack --config config/webpack/lib.js",
+    "webpack:dist:build": "node_modules/.bin/webpack --config config/webpack/dist.js -p",
+    "prepare": "npm run webpack:lib:build && npm run webpack:dist:build"
   },
   "repository": {
     "type": "git",
@@ -21,13 +24,16 @@
   },
   "homepage": "https://github.com/MichaelDMcCracken/faa-endorsements#readme",
   "devDependencies": {
-    "chai": "^4",
-    "mocha": "^5",
-    "nodemon": "^1",
     "babel-core": "^6",
     "babel-loader": "^7",
     "babel-preset-env": "^1",
+    "chai": "^4",
+    "mocha": "^5",
+    "nodemon": "^1",
     "uglifyjs-webpack-plugin": "^1",
-    "webpack": "^3"
+    "webpack": "^3",
+    "webpack-node-externals": "^1.6.0"
+  },
+  "dependencies": {
   }
 }
