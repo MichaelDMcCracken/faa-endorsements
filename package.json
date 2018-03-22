@@ -5,9 +5,8 @@
   "main": "lib/faa-endorsements.js",
   "browser": "dist/faa-endorsements.js",
   "scripts": {
-
     "test": "node_modules/.bin/mocha tests/*.js --require babel-core/register",
-    "test:watch": "nodemon --watch index.js --watch tests/index.js --exec 'npm run test || true'"
+    "test:watch": "nodemon --watch src/*.js --watch tests/*.js --exec 'npm run test || true'",
     "webpack:lib:build": "node_modules/.bin/webpack --config config/webpack/lib.js",
     "webpack:dist:build": "node_modules/.bin/webpack --config config/webpack/dist.js -p",
     "prepare": "npm run webpack:lib:build && npm run webpack:dist:build"
@@ -31,12 +30,14 @@
     "babel-preset-env": "^1",
     "babel-register": "^6.26.0",
     "chai": "^4",
+    "json-loader": "^0.5.7",
     "mocha": "^5",
     "nodemon": "^1",
+    "to-string-loader": "^1.1.5",
     "uglifyjs-webpack-plugin": "^1",
     "webpack": "^3",
-    "webpack-node-externals": "^1.6.0"
+    "webpack-node-externals": "^1.6.0",
+    "yaml-frontmatter-loader": "^0.1.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }

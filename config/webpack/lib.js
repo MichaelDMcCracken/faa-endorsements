@@ -7,20 +7,19 @@ module.exports = {
     path: path.resolve(__dirname, '../../lib'),
     filename: 'faa-endorsements.js',
     library: 'FAAEndorsements',
-    libraryExport: 'default',
+    libraryExport: 'FAAEndorsements',
     libraryTarget: 'umd'
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
-        use: {
-          loader: 'babel-loader'
-        }
+        use: ['babel-loader']
+      },
+      {
+        test: /\.md$/,
+        use: ['json-loader','yaml-frontmatter-loader']
       }
     ]
-  },
-  target: 'node',
-  externals: [nodeExternals()]
+  }
 }
