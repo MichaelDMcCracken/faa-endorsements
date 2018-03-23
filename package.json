@@ -8,8 +8,9 @@
     "test": "node_modules/.bin/mocha tests/*.js --require babel-core/register",
     "test:watch": "nodemon --watch src/*.js --watch tests/*.js --exec 'npm run webpack:lib:build && npm run test || true'",
     "webpack:lib:build": "node_modules/.bin/webpack --config config/webpack/lib.js",
-    "webpack:dist:build": "node_modules/.bin/webpack --config config/webpack/dist.js -p",
-    "prepare": "npm run webpack:lib:build && npm run webpack:dist:build"
+    "webpack:dist:build": "node_modules/.bin/webpack --config config/webpack/dist.js",
+    "webpack:dist:min:build": "MIN=TRUE node_modules/.bin/webpack --config config/webpack/dist.js -p",
+    "prepare": "npm run webpack:lib:build && npm run webpack:dist:build && npm run webpack:dist:min:build"
   },
   "repository": {
     "type": "git",

@@ -1,25 +1,12 @@
-const path = require('path')
+const entry = require('./entry')
 const nodeExternals = require('webpack-node-externals')
+const output = require('./output')
+const module_rules = require('./module')
 
 module.exports = {
-  entry: path.resolve(__dirname,'../../src/faa-endorsements.js'),
-  output: {
-    path: path.resolve(__dirname, '../../lib'),
-    filename: 'faa-endorsements.js',
-    library: 'FAAEndorsements',
-    libraryExport: 'FAAEndorsements',
-    libraryTarget: 'umd'
-  },
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        use: ['babel-loader']
-      },
-      {
-        test: /\.md$/,
-        use: ['json-loader','yaml-frontmatter-loader']
-      }
-    ]
-  }
+  entry,
+  output: output('lib'),
+  module: module_rules,
+  target: 'node',
+  externals: [nodeExternals()]
 }
