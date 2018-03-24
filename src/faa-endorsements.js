@@ -14,10 +14,7 @@ export class FAAEndorsements {
     this._endorsements = []
     this.endorsementTemplates = []
     this.locals = {}
-
-    if ( Array.isArray(options.endorsements) )  {
-      each(options.endorsements,title => addEndorsement(title))
-    }
+    addEndorsementsFromOptions(this)
   }
 
   addEndorsement(title) {
@@ -58,15 +55,21 @@ export class FAAEndorsements {
   }
 }
 
-function setLocals(_this,template) {
-  _this.locals = merge(arrayToObjectTemplate(template.attributes.locals),_this.locals)
-  if ( _this.options.missing ) {
-    applyMissingToLocals(_this)
+function setLocals(self,template) {
+  self.locals = merge(arrayToObjectTemplate(template.attributes.locals),self.locals)
+  if ( self.options.missing ) {
+    applyMissingToLocals(self)
   }
 }
 
-function setDefaults(_this) {
-  if ( !_this.options.missing ) {
-    _this.options.missing = null
+function setDefaults(self) {
+  if ( !self.options.missing ) {
+    self.options.missing = null
+  }
+}
+
+function addEndorsementsFromOptions(self) {
+  if ( Array.isArray(self.options.endorsements) )  {
+    each(self.options.endorsements,title => self.addEndorsement(title))
   }
 }

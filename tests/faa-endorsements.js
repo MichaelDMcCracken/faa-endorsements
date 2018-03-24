@@ -55,4 +55,14 @@ describe('FAAEndorsements()',() => {
       expect(f.locals.date).to.eq('foo')
     })
   })
+
+  it('adds endorsements from options',() => {
+    let f = new FAAEndorsements({
+      endorsements: [
+        FAAEndorsements.Endorsements[0],
+        FAAEndorsements.Endorsements[1],
+      ]
+    })
+    expect(f.locals).to.include.keys(['date','student'])
+  })
 })
