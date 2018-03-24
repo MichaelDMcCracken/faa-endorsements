@@ -3,6 +3,7 @@ import merge from 'lodash/merge'
 import each from 'lodash/each'
 import Handlebars from 'handlebars'
 import arrayToObjectTemplate from 'array-to-object-template'
+import applyMissingToLocals from './lib/apply-missing-to-locals'
 
 import {Templates,Endorsements} from 'Templates'
 
@@ -36,7 +37,6 @@ export class FAAEndorsements {
   }
 
   get endorsements() {
-    console.log('foo')
     return this._endorsements
   }
 
@@ -63,23 +63,6 @@ function setLocals(_this,template) {
   if ( _this.options.missing ) {
     applyMissingToLocals(_this)
   }
-}
-
-function _applyMissingToLocals(_this,obj) {
-  let newObj = {}
-  Object.keys(obj).forEach(k => {
-    if ( !obj[k] ) {
-      newObj[k] = _this.options.missing
-    }
-    else {
-      newObj[k] = _applyMissingToLocals(_this,obj[k])
-    }
-  })
-  return newObj
-}
-
-function applyMissingToLocals(_this) {
-  _this.locals = _applyMissingToLocals(_this,_this.locals)
 }
 
 function setDefaults(_this) {
