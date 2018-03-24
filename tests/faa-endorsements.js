@@ -36,6 +36,12 @@ describe('FAAEndorsements()',() => {
     })
   })
 
+  context('locals',() => {
+    let f = new FAAEndorsements()
+    f.addEndorsement(FAAEndorsements.Endorsements[0])
+    expect(f.locals).to.be.an('object')
+  })
+
   context('.addEndorsement()',() => {
     it('adds an endorsement to the instance',() => {
       let f = new FAAEndorsements()
@@ -83,6 +89,32 @@ describe('FAAEndorsements()',() => {
       expect(elist).to.eql(etlist)
     })
 
-    it('locals should update and remove items that are no longer used')
+    it('works',() => {
+      let f = new FAAEndorsements()
+      f.endorsements = [FAAEndorsements.Endorsements[0]]
+      expect(f.locals).to.include.keys('date')
+      f.endorsements = []
+      expect(f.locals).to.not.include.keys('date')
+    })
+
+    it('locals should update and remove items that are no longer used',() => {
+      let f = new FAAEndorsements()
+      let with_gender = _.filter(FAAEndorsements.Templates,en => {
+        if ( en.attributes.locals.student && en.attributes.locals.student.hasOwnProperty('gender') ) {
+          return true
+        }
+        return false
+      })
+      let without_gender = _.filter(FAAEndorsements.Templates,en => {
+        if ( en.attributes.locals.student && !en.attributes.locals.student.hasOwnProperty('gender') ) {
+          return true
+        }
+        return false
+      })
+      f.endorsements = [with_gender[0].attributes.title]
+      expect(f.locals.student).to.include.keys('gender')
+      f.endorsements = [without_gender[0].attributes.title]
+      expect(f.locals.student).to.not.include.keys('gender')
+    })
   })
 })

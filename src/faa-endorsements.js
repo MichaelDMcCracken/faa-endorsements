@@ -2,7 +2,6 @@ import filter from 'lodash/filter'
 import merge from 'lodash/merge'
 import each from 'lodash/each'
 import Handlebars from 'handlebars'
-import arrayToObjectTemplate from 'array-to-object-template'
 import applyMissingToLocals from './lib/apply-missing-to-locals'
 
 import {Templates,Endorsements} from 'Templates'
@@ -13,25 +12,26 @@ export class FAAEndorsements {
     setDefaults(this)
     this._endorsements = []
     this._endorsementTemplates = []
-    this.locals = {}
+    this._locals = {}
     addEndorsementsFromOptions(this)
   }
 
   addEndorsement(title) {
     let template = FAAEndorsements.getTemplate(title)
     if ( template ) {
-      this.endorsementTemplates.push(template)
-      this.endorsements.push(template.attributes.title)
-      setLocals(this,template)
+      this._endorsementTemplates.push(template)
+      this._endorsements.push(template.attributes.title)
     }
     else {
       throw new Error(`template ${title} not be found`)
     }
+    setLocals(this)
   }
 
   set endorsements(es) {
     this._endorsements = es
     rebuildEndorsementsFromEndorsementsList(this)
+    setLocals(this)
   }
 
   get endorsements() {
@@ -44,6 +44,10 @@ export class FAAEndorsements {
 
   get endorsementTemplates() {
     return this._endorsementTemplates
+  }
+
+  get locals() {
+    return this._locals
   }
 
   static get Templates() {
@@ -64,8 +68,13 @@ export class FAAEndorsements {
   }
 }
 
-function setLocals(self,template) {
-  self.locals = merge(arrayToObjectTemplate(template.attributes.locals),self.locals)
+function setLocals(self) {
+  self._locals = {}
+
+  self.endorsementTemplates.forEach(et => {
+    self._locals = merge(et.attributes.locals,self._locals)
+  })
+
   if ( self.options.missing ) {
     applyMissingToLocals(self)
   }
@@ -84,9 +93,10 @@ function addEndorsementsFromOptions(self) {
 }
 
 function rebuildEndorsementsFromEndorsementsList(self) {
+  let list = self._endorsements
+  self._endorsements = []
   self._endorsementTemplates = []
-  self._endorsements.forEach(en => {
-    let t = FAAEndorsements.getTemplate(en)
-    self._endorsementTemplates.push(t)
+  list.forEach(en => {
+    self.addEndorsement(en)
   })
 }
