@@ -41,6 +41,7 @@
     "yaml-frontmatter-loader": "^0.1.0"
   },
   "dependencies": {
+    "array-to-object-template": "^1.0.0",
     "handlebars": "^4.0.11",
     "lodash": "^4.17.5"
   }
