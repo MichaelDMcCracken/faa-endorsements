@@ -12,7 +12,7 @@ export class FAAEndorsements {
     this.options = options
     setDefaults(this)
     this._endorsements = []
-    this.endorsementTemplates = []
+    this._endorsementTemplates = []
     this.locals = {}
     addEndorsementsFromOptions(this)
   }
@@ -31,10 +31,19 @@ export class FAAEndorsements {
 
   set endorsements(es) {
     this._endorsements = es
+    rebuildEndorsementsFromEndorsementsList(this)
   }
 
   get endorsements() {
     return this._endorsements
+  }
+
+  set endorsementTemplates(ets) {
+    this._endorsementTemplates = ets
+  }
+
+  get endorsementTemplates() {
+    return this._endorsementTemplates
   }
 
   static get Templates() {
@@ -72,4 +81,12 @@ function addEndorsementsFromOptions(self) {
   if ( Array.isArray(self.options.endorsements) )  {
     each(self.options.endorsements,title => self.addEndorsement(title))
   }
+}
+
+function rebuildEndorsementsFromEndorsementsList(self) {
+  self._endorsementTemplates = []
+  self._endorsements.forEach(en => {
+    let t = FAAEndorsements.getTemplate(en)
+    self._endorsementTemplates.push(t)
+  })
 }

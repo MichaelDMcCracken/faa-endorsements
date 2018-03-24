@@ -4,6 +4,7 @@ import path from 'path'
 const describe = mocha.describe
 const expect = chai.expect
 import FAAEndorsements from '../lib/faa-endorsements'
+import _ from 'lodash'
 
 describe('FAAEndorsements()',() => {
   it('is a function',() => {
@@ -23,8 +24,11 @@ describe('FAAEndorsements()',() => {
 
   context('.getTemplate()',() => {
     it('finds a template Endorsement title',() => {
-      let endorsement = FAAEndorsements.Endorsements[0]
-      expect(FAAEndorsements.getTemplate(endorsement)).to.be.an('object')
+      let en = FAAEndorsements.Endorsements[0]
+      let t = FAAEndorsements.getTemplate(en)
+      expect(t).to.be.an('object')
+      expect(t).to.include.keys('attributes')
+      expect(t.attributes.title).to.eq(en)
     })
 
     it('fails gracefully if it did not find a template',() => {
@@ -64,5 +68,21 @@ describe('FAAEndorsements()',() => {
       ]
     })
     expect(f.locals).to.include.keys(['date','student'])
+  })
+
+  context('when updating endorsements by setting endorsements list',() => {
+    it('endorsements and endorsementTemplates should match',() => {
+      let f = new FAAEndorsements()
+      f.endorsements = [
+        FAAEndorsements.Endorsements[0],
+        FAAEndorsements.Endorsements[2],
+        FAAEndorsements.Endorsements[3],
+      ]
+      let elist = f.endorsements
+      let etlist = _.map(f.endorsementTemplates,en => en.attributes.title)
+      expect(elist).to.eql(etlist)
+    })
+
+    it('locals should update and remove items that are no longer used')
   })
 })
