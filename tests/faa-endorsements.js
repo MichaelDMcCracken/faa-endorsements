@@ -85,7 +85,7 @@ describe('FAAEndorsements()',() => {
         FAAEndorsements.Endorsements[3],
       ]
       let elist = f.endorsements
-      let etlist = _.map(f.endorsementTemplates,en => en.attributes.title)
+      let etlist = _.map(f._endorsementTemplates,en => en.attributes.title)
       expect(elist).to.eql(etlist)
     })
 

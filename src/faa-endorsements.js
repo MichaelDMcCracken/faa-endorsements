@@ -8,12 +8,9 @@ import {Templates,Endorsements} from 'Templates'
 
 export class FAAEndorsements {
   constructor (options={}) {
-    this.options = options
-    setDefaults(this)
-    this._endorsements = []
-    this._endorsementTemplates = []
-    this._locals = {}
-    addEndorsementsFromOptions(this)
+    initOptions(this,options)
+    initEndorsements(this)
+    initLocals(this)
   }
 
   addEndorsement(title) {
@@ -25,29 +22,36 @@ export class FAAEndorsements {
     else {
       throw new Error(`template ${title} not be found`)
     }
-    setLocals(this)
+    prepLocals(this)
   }
 
   set endorsements(es) {
     this._endorsements = es
-    rebuildEndorsementsFromEndorsementsList(this)
-    setLocals(this)
+    change(this)
+    return this._endorsements
   }
 
   get endorsements() {
     return this._endorsements
   }
 
-  set endorsementTemplates(ets) {
-    this._endorsementTemplates = ets
-  }
-
-  get endorsementTemplates() {
-    return this._endorsementTemplates
-  }
-
   get locals() {
     return this._locals
+  }
+
+  renderAll() {
+  }
+
+  renderOne(x) {
+    let i
+    if ( typeof x === 'number' ) {
+      i = x
+    }
+    if ( typeof x === 'string' ) {
+      i = map(this._endorsementTemplates,es => es.attributes.title)
+        .indexOf(x)
+    }
+    _render(this,i)
   }
 
   static get Templates() {
@@ -68,10 +72,43 @@ export class FAAEndorsements {
   }
 }
 
-function setLocals(self) {
+function initOptions(self,options) {
+  self.options = options
+  if ( !self.options.missing ) {
+    self.options.missing = null
+  }
+}
+
+function initEndorsements(self) {
+  if ( self.options.hasOwnProperty('endorsements') ) {
+    if ( Array.isArray(self.options.endorsements) )  {
+      self._endorsements = self.options.endorsements
+    }
+    else {
+      throw new Error('endorsements option must be an array')
+    }
+  }
+  prepEndorsements(self)
+}
+
+function prepEndorsements(self) {
+  if ( !self.hasOwnProperty('_endorsements') ) {
+    self._endorsements = []
+  }
+  let list = self._endorsements
+  self._endorsements = []
+  self._endorsementTemplates = []
+  list.forEach(en => self.addEndorsement(en))
+}
+
+function initLocals(self) {
+  prepLocals(self)
+}
+
+function prepLocals(self) {
   self._locals = {}
 
-  self.endorsementTemplates.forEach(et => {
+  self._endorsementTemplates.forEach(et => {
     self._locals = merge(et.attributes.locals,self._locals)
   })
 
@@ -80,23 +117,11 @@ function setLocals(self) {
   }
 }
 
-function setDefaults(self) {
-  if ( !self.options.missing ) {
-    self.options.missing = null
-  }
+function change(self) {
+  prepEndorsements(self)
+  prepLocals(self)
 }
 
-function addEndorsementsFromOptions(self) {
-  if ( Array.isArray(self.options.endorsements) )  {
-    each(self.options.endorsements,title => self.addEndorsement(title))
-  }
-}
-
-function rebuildEndorsementsFromEndorsementsList(self) {
-  let list = self._endorsements
-  self._endorsements = []
-  self._endorsementTemplates = []
-  list.forEach(en => {
-    self.addEndorsement(en)
-  })
+function _render(self,i) {
+  return self._endorsementTemplates[i]
 }
