@@ -1,10 +1,13 @@
 import filter from 'lodash/filter'
 import merge from 'lodash/merge'
-import each from 'lodash/each'
+import map from 'lodash/map'
 import Handlebars from 'handlebars'
 import applyMissingToLocals from './lib/apply-missing-to-locals'
+import {_Templates,_Endorsements} from 'Templates'
 
-import {Templates,Endorsements} from 'Templates'
+export const Templates = _Templates
+
+export const Endorsements = _Endorsements
 
 export class FAAEndorsements {
   constructor (options={}) {
@@ -39,9 +42,6 @@ export class FAAEndorsements {
     return this._locals
   }
 
-  renderAll() {
-  }
-
   renderOne(x) {
     let i
     if ( typeof x === 'number' ) {
@@ -51,11 +51,15 @@ export class FAAEndorsements {
       i = map(this._endorsementTemplates,es => es.attributes.title)
         .indexOf(x)
     }
-    _render(this,i)
+    return _render(this,i)
+  }
+
+  renderAll() {
+    return map(this._endorsements,(en,i) => renderOne(i))
   }
 
   static get Templates() {
-    return Templates;
+    return _Templates;
   }
 
   static getTemplate(title) {
@@ -68,7 +72,7 @@ export class FAAEndorsements {
   }
 
   static get Endorsements() {
-    return Endorsements;
+    return _Endorsements;
   }
 }
 

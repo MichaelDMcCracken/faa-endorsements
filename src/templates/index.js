@@ -13,9 +13,9 @@ import a11 from './a-11-repeated-within-50.md'
 
 const _templates = [a3,a4,a5,a6,a7,a8,a9,a10,a11]
 
-export const Templates = map(_templates,t => {
+export const _Templates = map(_templates,t => {
   t.attributes.locals = arrayToObjectTemplate(t.attributes.locals)
   return t
 })
 
-export const Endorsements = map(Templates,t => t.attributes.title)
+export const _Endorsements = map(_Templates,t => t.attributes.title)
