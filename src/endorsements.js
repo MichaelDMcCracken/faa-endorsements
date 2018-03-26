@@ -1,5 +1,5 @@
 const map = require('lodash.map')
-const Templates = require('../templates/index.js')
+const Templates = require('./templates')
 
 const Endorsements = map(Templates,t => t.attributes.title)
 

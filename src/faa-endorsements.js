@@ -2,8 +2,8 @@ const filter = require('lodash.filter')
 const merge = require('lodash.merge')
 const map = require('lodash.map')
 const _Templates = require('./templates')
-const _Endorsements = require('./lib/endorsements')
-const _render = require('./lib/render')
+const _Endorsements = require('./endorsements')
+const _render = require('./render')
 
 class FAAEndorsements {
   constructor (_options={}) {
