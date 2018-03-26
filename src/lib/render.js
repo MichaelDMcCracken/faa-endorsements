@@ -3,7 +3,7 @@ const Templates = require('../templates')
 const Endorsements = require('./endorsements')
 const parse = require('date-fns/parse')
 const clone = require('lodash/clonedeep')
-const isObject = require('lodash/isobject')
+const _isObject = require('lodash/isobject')
 const format = require('date-fns/format')
 
 function render(i) {
@@ -44,7 +44,7 @@ function formatDate(str) {
 function formatDates(obj) {
   let newObj = {}
   Object.keys(obj).forEach(k => {
-    if ( !isObject(obj[k]) ) {
+    if ( !_isObject(obj[k]) ) {
       if ( k.endsWith('date') ) {
         newObj[k] = formatDate(obj[k])
       }
@@ -66,7 +66,7 @@ function applyMissingToLocals(obj,missing) {
       newObj[k] = missing
     }
     else {
-      if ( isObject(obj[k]) ) {
+      if ( _isObject(obj[k]) ) {
         newObj[k] = applyMissingToLocals(obj[k],missing)
       }
       else {
