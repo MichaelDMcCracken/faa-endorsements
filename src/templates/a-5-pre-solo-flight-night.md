@@ -21,6 +21,6 @@ locals:
 
 {{title}}: {{regulation}}.
 
-I certify that {{student.name}} has received the required pre-solo training in a {{aircraft.make}} {{aircraft.model}}. I have determined {{#if student.gender === "male"}}he{{else}}she{{/if}} has demonstrated the proficiency of § 61.87(o) and is proficient to make solo flights at night in that make and model aircraft.
+I certify that {{student.name}} has received the required pre-solo training in a {{aircraft.make}} {{aircraft.model}}. I have determined {{student.gender}} has demonstrated the proficiency of § 61.87(o) and is proficient to make solo flights at night in that make and model aircraft.
 
 {{date}} {{instructor.name}} {{instructor.cert_number}} Exp. {{instructor.cert_expiration}}

@@ -26,7 +26,7 @@ locals:
 
 {{title}}: {{regulation}}.
 
-I certify that {{student.name}} has received the required training in both directions between and at both [airport names]. I have determined that {{#if student.gender === "male"}}he{{else}}she{{/if}} is proficient of § 61.93(b)(2) to conduct repeated solo cross-country flights over that route, subject to the following conditions: {{student.limitations}}
+I certify that {{student.name}} has received the required training in both directions between and at both [airport names]. I have determined that {{student.gender}} is proficient of § 61.93(b)(2) to conduct repeated solo cross-country flights over that route, subject to the following conditions: {{student.limitations}}
 
 Limitations: {{student.limitations}}
 

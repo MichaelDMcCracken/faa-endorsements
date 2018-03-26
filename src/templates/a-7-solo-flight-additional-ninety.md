@@ -22,7 +22,7 @@ locals:
 {{title}}: {{regulation}}.
 
 I certify that {{student.name}} has received the required training to qualify for
-solo flying. I have determined that {{#if student.gender === "male"}}he{{else}}she{{/if}} meets the applicable requirements of
+solo flying. I have determined that {{student.gender}} meets the applicable requirements of
 § 61.87(p) and is proficient to make solo flights in [M/M].
 
 Limitations: {{student.limitations}}

@@ -5,11 +5,12 @@
   "main": "lib/faa-endorsements.js",
   "browser": "dist/faa-endorsements.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha tests/*.js --require babel-core/register",
-    "test:watch": "nodemon --watch src/*.js --watch tests/*.js --exec 'npm run test || true'",
+    "test": "node_modules/.bin/mocha tests/*.js",
+    "test:watch": "nodemon --watch src/faa-endorsements.js --watch src/templates/index.js --watch src/lib/render.js --watch tests/faa-endorsements.js --watch tests/templates.js --watch tests/endorsements.js --watch tests/endorsements-templates.js --exec 'npm run webpack:lib:build && npm run test || true'",
     "webpack:lib:build": "node_modules/.bin/webpack --config config/webpack/lib.js",
-    "webpack:dist:build": "node_modules/.bin/webpack --config config/webpack/dist.js -p",
-    "prepare": "npm run webpack:lib:build && npm run webpack:dist:build"
+    "webpack:dist:build": "node_modules/.bin/webpack --config config/webpack/dist.js",
+    "webpack:dist:min:build": "MIN=TRUE node_modules/.bin/webpack --config config/webpack/dist.js -p",
+    "prepare": "npm run webpack:lib:build && npm run webpack:dist:build && npm run webpack:dist:min:build"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,7 @@
     "babel-preset-env": "^1",
     "babel-register": "^6.26.0",
     "chai": "^4",
+    "date-fns": "^1.29.0",
     "json-loader": "^0.5.7",
     "mocha": "^5",
     "nodemon": "^1",
@@ -39,5 +41,9 @@
     "webpack-node-externals": "^1.6.0",
     "yaml-frontmatter-loader": "^0.1.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "array-to-object-template": "^1.0.0",
+    "handlebars": "^4.0.11",
+    "lodash": "^4.17.5"
+  }
 }
