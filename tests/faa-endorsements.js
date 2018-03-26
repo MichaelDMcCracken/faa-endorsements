@@ -71,13 +71,34 @@ describe('FAAEndorsements()',() => {
       f.endorsements = [without_gender[0].attributes.title]
       expect(f.locals.student).to.not.include.keys('gender')
     })
+  })
 
-    context('custom missing', () => {
-      it('sets a custom missing string',() => {
-        let f = new FAAEndorsements({ missing: 'foo' })
-        f.addEndorsement(FAAEndorsements.Endorsements[0])
-        expect(f.locals.date).to.eq('foo')
-      })
+  context('rendering',function () {
+    it('renders a template',function () {
+      let f = new FAAEndorsements({ endorsements: [FAAEndorsements.Endorsements[0]] })
+      let example_name = 'John Smith'
+      f.locals.student.name = example_name
+      let output = f.renderOne(0)
+      expect(output).to.be.a('string')
+      expect(output).to.include(example_name)
+    })
+
+    it('inserts custom missing placeholders when they are set',function () {
+      let missing = 'foobarbaz'
+      let example_endorsement = FAAEndorsements.Endorsements[0]
+      let f = new FAAEndorsements({ endorsements: [example_endorsement], missing })
+      let output = f.renderOne(0)
+      expect(output).to.include(missing)
+    })
+
+    it('formats dates when provided, date fields must end with date',function () {
+      let example_endorsement = FAAEndorsements.Endorsements[0]
+      let f = new FAAEndorsements({ endorsements: [example_endorsement] })
+      let date = '3/12/2017'
+      let formatted_date = 'March 12th, 2017'
+      f.locals.date = date
+      let output = f.renderOne(0)
+      expect(output).to.include(formatted_date)
     })
   })
 })

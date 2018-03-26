@@ -1,14 +1,13 @@
 const filter = require('lodash/filter')
 const merge = require('lodash/merge')
 const map = require('lodash/map')
-const Handlebars = require('handlebars')
-const applyMissingToLocals = require('./lib/apply-missing-to-locals')
 const _Templates = require('./templates')
 const _Endorsements = require('./lib/endorsements')
+const _render = require('./lib/render')
 
 class FAAEndorsements {
-  constructor (options={}) {
-    this._initOptions(options)
+  constructor (_options={}) {
+    this._initOptions(_options)
     this._initEndorsements()
     this._initLocals()
   }
@@ -16,13 +15,13 @@ class FAAEndorsements {
   addEndorsement(title) {
     let template = FAAEndorsements.getTemplate(title)
     if ( template ) {
-      this._endorsementTemplates.push(template)
       this._endorsements.push(template.attributes.title)
+      this._endorsementTemplates.push(template)
+      this._prepLocals()
     }
     else {
       throw new Error(`template ${title} not be found`)
     }
-    this._prepLocals()
   }
 
   set endorsements(es) {
@@ -48,11 +47,15 @@ class FAAEndorsements {
       i = map(this._endorsementTemplates,es => es.attributes.title)
         .indexOf(x)
     }
-    return _render(i)
+    return _render.bind(this)(i)
   }
 
   renderAll() {
     return map(this._endorsements,(en,i) => renderOne(i))
+  }
+
+  render() {
+    return renderAll()
   }
 
   static getTemplate(title) {
@@ -72,17 +75,15 @@ class FAAEndorsements {
     return _Endorsements
   }
 
-  _initOptions(options) {
-    this.options = options
-    if ( !this.options.missing ) {
-      this.options.missing = null
-    }
+  _initOptions(_options) {
+    this.options = merge({ missing: null },_options)
   }
 
   _initEndorsements() {
     if ( this.options.hasOwnProperty('endorsements') ) {
       if ( Array.isArray(this.options.endorsements) )  {
         this._endorsements = this.options.endorsements
+        delete this.options.endorsements
       }
       else {
         throw new Error('endorsements option must be an array')
@@ -109,21 +110,13 @@ class FAAEndorsements {
     this._locals = {}
 
     this._endorsementTemplates.forEach(et => {
-      this._locals = merge(et.attributes.locals,this._locals)
+      this._locals = merge(this._locals,et.attributes.locals)
     })
-
-    if ( this.options.missing ) {
-      applyMissingToLocals(this)
-    }
   }
 
   _change() {
     this._prepEndorsements()
     this._prepLocals()
-  }
-
-  _render(i) {
-    return this._endorsementTemplates[i]
   }
 }
 
