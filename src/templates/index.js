@@ -1,21 +1,21 @@
-import map from 'lodash/map'
-import arrayToObjectTemplate from 'array-to-object-template'
+const map = require('lodash/map')
+const arrayToObjectTemplate = require('array-to-object-template')
 
-import a3  from './a-3-pre-solo-knowledge.md'
-import a4  from './a-4-pre-solo-flight-training.md'
-import a5  from './a-5-pre-solo-flight-night.md'
-import a6  from './a-6-solo-first-ninety.md'
-import a7  from './a-7-solo-flight-additional-ninety.md'
-import a8  from './a-8-solo-within-25-miles.md'
-import a9  from './a-9-solo-xc-flight.md'
-import a10 from './a-10-solo-xc-individual-flight.md'
-import a11 from './a-11-repeated-within-50.md'
+const a3  = require('./a-3-pre-solo-knowledge.md')
+const a4  = require('./a-4-pre-solo-flight-training.md')
+const a5  = require('./a-5-pre-solo-flight-night.md')
+const a6  = require('./a-6-solo-first-ninety.md')
+const a7  = require('./a-7-solo-flight-additional-ninety.md')
+const a8  = require('./a-8-solo-within-25-miles.md')
+const a9  = require('./a-9-solo-xc-flight.md')
+const a10 = require('./a-10-solo-xc-individual-flight.md')
+const a11 = require('./a-11-repeated-within-50.md')
 
-const _templates = [a3,a4,a5,a6,a7,a8,a9,a10,a11]
+const templates = [a3,a4,a5,a6,a7,a8,a9,a10,a11]
 
-export const _Templates = map(_templates,t => {
+const Templates = map(templates,t => {
   t.attributes.locals = arrayToObjectTemplate(t.attributes.locals)
   return t
 })
 
-export const _Endorsements = map(_Templates,t => t.attributes.title)
+module.exports = Templates

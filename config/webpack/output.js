@@ -10,7 +10,6 @@ function output(dir) {
     path: path.resolve(__dirname, '../../' + dir),
     filename,
     library: 'FAAEndorsements',
-    libraryExport: 'FAAEndorsements',
     libraryTarget: 'umd'
   }
 }

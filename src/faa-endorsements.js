@@ -1,15 +1,12 @@
-import filter from 'lodash/filter'
-import merge from 'lodash/merge'
-import map from 'lodash/map'
-import Handlebars from 'handlebars'
-import applyMissingToLocals from './lib/apply-missing-to-locals'
-import {_Templates,_Endorsements} from 'Templates'
+const filter = require('lodash/filter')
+const merge = require('lodash/merge')
+const map = require('lodash/map')
+const Handlebars = require('handlebars')
+const applyMissingToLocals = require('./lib/apply-missing-to-locals')
+const _Templates = require('./templates')
+const _Endorsements = require('./lib/endorsements')
 
-export const Templates = _Templates
-
-export const Endorsements = _Endorsements
-
-export class FAAEndorsements {
+module.exports = class FAAEndorsements {
   constructor (options={}) {
     initOptions(this,options)
     initEndorsements(this)
@@ -65,6 +62,14 @@ export class FAAEndorsements {
     if ( found.length ) {
       return found[0]
     }
+  }
+
+  static get Templates() {
+    return _Templates
+  }
+
+  static get Endorsements() {
+    return _Endorsements
   }
 }
 

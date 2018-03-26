@@ -11,6 +11,8 @@ function _applyMissingToLocals(self,obj) {
   return newObj
 }
 
-export default function applyMissingToLocals(self) {
+function applyMissingToLocals(self) {
   self._locals = _applyMissingToLocals(self,self._locals)
 }
+
+module.exports = applyMissingToLocals

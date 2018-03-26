@@ -1,10 +1,10 @@
-import mocha from 'mocha'
-import chai from 'chai'
-import path from 'path'
+const mocha = require('mocha')
+const chai = require('chai')
+const path = require('path')
 const describe = mocha.describe
 const expect = chai.expect
-import FAAEndorsements from '../lib/faa-endorsements'
-import _ from 'lodash'
+const FAAEndorsements = require('../lib/faa-endorsements')
+const _ = require('lodash')
 
 describe('FAAEndorsements()',() => {
   it('is a function',() => {

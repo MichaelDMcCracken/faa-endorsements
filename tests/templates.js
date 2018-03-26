@@ -1,9 +1,9 @@
-import mocha from 'mocha'
-import chai from 'chai'
-import path from 'path'
+const mocha = require('mocha')
+const chai = require('chai')
+const path = require('path')
 const describe = mocha.describe
 const expect = chai.expect
-import FAAEndorsements from '../lib/faa-endorsements'
+const FAAEndorsements = require('../lib/faa-endorsements')
 
 describe('Templates',() => {
   it('has templates',() => {

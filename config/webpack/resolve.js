@@ -1,9 +1,12 @@
-const path = require('path')
+const _path = require('path')
+
+function path(p) {
+  return _path.resolve(__dirname,'../..',p)
+}
 
 const resolve = {
   alias: {
-    Templates: path.resolve(__dirname,'../../src/templates/'),
-    handlebars: path.resolve(__dirname,'../../node_modules/handlebars/dist/handlebars.js')
+    handlebars: path('/node_modules/handlebars/dist/handlebars.js')
   }
 }
 
