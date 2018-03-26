@@ -1,4 +1,4 @@
-const map = require('lodash/map')
+const map = require('lodash.map')
 const arrayToObjectTemplate = require('array-to-object-template')
 
 const a3  = require('./a-3-pre-solo-knowledge.md')

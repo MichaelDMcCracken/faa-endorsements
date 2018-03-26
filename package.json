@@ -33,6 +33,7 @@
     "chai": "^4",
     "date-fns": "^1.29.0",
     "json-loader": "^0.5.7",
+    "lodash": "^4.17.5",
     "mocha": "^5",
     "nodemon": "^1",
     "to-string-loader": "^1.1.5",
@@ -44,6 +45,10 @@
   "dependencies": {
     "array-to-object-template": "^1.0.0",
     "handlebars": "^4.0.11",
-    "lodash": "^4.17.5"
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.filter": "^4.6.0",
+    "lodash.isobject": "^3.0.2",
+    "lodash.map": "^4.6.0",
+    "lodash.merge": "^4.6.1"
   }
 }

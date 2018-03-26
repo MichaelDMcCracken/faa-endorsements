@@ -2,8 +2,8 @@ const Handlebars = require('handlebars')
 const Templates = require('../templates')
 const Endorsements = require('./endorsements')
 const parse = require('date-fns/parse')
-const clone = require('lodash/clonedeep')
-const _isObject = require('lodash/isobject')
+const clone = require('lodash.clonedeep')
+const _isObject = require('lodash.isobject')
 const format = require('date-fns/format')
 
 function render(i) {
