@@ -88,11 +88,19 @@ describe('FAAEndorsements()',() => {
       let example_endorsement = FAAEndorsements.Endorsements[0]
       let f = new FAAEndorsements({ endorsements: [example_endorsement], missing })
       let output = f.renderOne(0)
-      console.log(output)
       expect(output).to.include(missing)
     })
 
-    it('sets non-local variables before rendering the template')
+    it('merges internals such as title and regulation into the locals before rendering',function () {
+      let endorsement = FAAEndorsements.Endorsements[0]
+      let template = FAAEndorsements.getTemplate(endorsement)
+      let title = template.attributes.title
+      let regulation = template.attributes.regulation
+      let f = new FAAEndorsements({ endorsements: [endorsement] })
+      let output = f.render()[0]
+      expect(output).to.include(title)
+      expect(output).to.include(regulation)
+    })
 
     it('formats dates when provided, date fields must end with date',function () {
       let example_endorsement = FAAEndorsements.Endorsements[0]

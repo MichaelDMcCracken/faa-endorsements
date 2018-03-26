@@ -1,26 +1,28 @@
 const Handlebars = require('handlebars')
-const Templates = require('../templates')
+const Templates = require('./templates')
 const Endorsements = require('./endorsements')
 const parse = require('date-fns/parse')
-const clone = require('lodash.clonedeep')
 const _isObject = require('lodash.isobject')
 const format = require('date-fns/format')
+const merge = require('lodash.merge')
 
 function render(i) {
   let template = this._endorsementTemplates[i]
 
   let handlebars = Handlebars.compile(template.body)
 
-  let str = handlebars(prepareLocals(this))
-    
+  let str = handlebars(prepareLocals(this,template))
+
   return str.trim()
 }
 module.exports = render
 
-function prepareLocals(self) {
-  let locals = clone(self._locals)
+function prepareLocals(self,template) {
+  // let locals = clone(self._locals)
+  let locals = self._locals
   locals = formatDates(locals)
   locals = applyMissingToLocals(locals,self.options.missing)
+  locals = mergeInternalsIntoLocals(locals,template)
 
   return locals
 }
@@ -75,4 +77,15 @@ function applyMissingToLocals(obj,missing) {
     }
   })
   return newObj
+}
+
+function mergeInternalsIntoLocals(locals,template) {
+  let internals = {}
+  if ( template.attributes.hasOwnProperty('title') ) {
+    internals.title = template.attributes.title
+  }
+  if ( template.attributes.hasOwnProperty('regulation') ) {
+    internals.regulation = template.attributes.regulation
+  }
+  return merge(internals,locals)
 }
