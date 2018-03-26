@@ -19,4 +19,11 @@ describe('Templates',() => {
   it('have titles',() => {
     Templates.forEach(t => expect(t.attributes).to.include.key('title'))
   })
+
+  it('successfully renders all templates',function () {
+    let f = new FAAEndorsements()
+    f.endorsements = FAAEndorsements.Endorsements
+    let output = f.render()
+    expect(output).to.be.an('array')
+  })
 })

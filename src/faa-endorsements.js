@@ -51,11 +51,11 @@ class FAAEndorsements {
   }
 
   renderAll() {
-    return map(this._endorsements,(en,i) => renderOne(i))
+    return map(this._endorsements,(en,i) => this.renderOne(i))
   }
 
   render() {
-    return renderAll()
+    return this.renderAll()
   }
 
   static getTemplate(title) {

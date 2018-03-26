@@ -25,7 +25,7 @@ locals:
 
 {{title}}: {{regulation}}.
 
-I certify that {{student.name}} has received the required training of § 61.93(b)(1). I have determined that {{#if student.gender === "male"}}he{{else}}she{{/if}} is proficient to practice solo takeoffs and landings at {{airport.name}} ({{airport.code}}). The takeoffs and landings at {{airport.name}} ({{airport.code}}) are subject to the
+I certify that {{student.name}} has received the required training of § 61.93(b)(1). I have determined that {{student.gender}} is proficient to practice solo takeoffs and landings at {{airport.name}} ({{airport.code}}). The takeoffs and landings at {{airport.name}} ({{airport.code}}) are subject to the
 following conditions: {{student.limitations}}
 
 {{date}} {{instructor.name}} {{instructor.cert_number}} Exp. {{instructor.cert_expiration}}

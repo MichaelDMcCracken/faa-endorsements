@@ -88,18 +88,23 @@ describe('FAAEndorsements()',() => {
       let example_endorsement = FAAEndorsements.Endorsements[0]
       let f = new FAAEndorsements({ endorsements: [example_endorsement], missing })
       let output = f.renderOne(0)
+      console.log(output)
       expect(output).to.include(missing)
     })
+
+    it('sets non-local variables before rendering the template')
 
     it('formats dates when provided, date fields must end with date',function () {
       let example_endorsement = FAAEndorsements.Endorsements[0]
       let f = new FAAEndorsements({ endorsements: [example_endorsement] })
-      let date = '3/12/2017'
+      let date = '3/12/17'
       let formatted_date = 'March 12th, 2017'
       f.locals.date = date
       let output = f.renderOne(0)
       expect(output).to.include(formatted_date)
     })
+
+    it('formats expiration dates using only the month and year')
   })
 })
 

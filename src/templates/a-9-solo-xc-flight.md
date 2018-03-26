@@ -21,6 +21,6 @@ locals:
 
 {{title}}: {{regulation}}.
 
-I certify that {{student.name}} has received the required solo cross-country training. I find {{#if student.gender === "male"}}he{{else}}she{{/if}} has met the applicable requirements of § 61.93, and is proficient to make solo cross-country flights in a {{aircraft.make}} {{aircraft.model}}, {{aircraft.category}}.
+I certify that {{student.name}} has received the required solo cross-country training. I find {{student.gender}} has met the applicable requirements of § 61.93, and is proficient to make solo cross-country flights in a {{aircraft.make}} {{aircraft.model}}, {{aircraft.category}}.
 
 {{date}} {{instructor.name}} {{instructor.cert_number}} Exp. {{instructor.cert_expiration}}
