@@ -6,7 +6,7 @@ function path(p) {
 
 const resolve = {
   alias: {
-    handlebars: path('/node_modules/handlebars/dist/handlebars.js')
+    handlebars: path('node_modules/handlebars/dist/handlebars.js')
   }
 }
 
