@@ -58,21 +58,13 @@ export class FAAEndorsements {
     return map(this._endorsements,(en,i) => renderOne(i))
   }
 
-  static get Templates() {
-    return _Templates;
-  }
-
   static getTemplate(title) {
-    let found = filter(Templates,t => {
+    let found = filter(_Templates,t => {
       return t.attributes.title === title
     })
     if ( found.length ) {
       return found[0]
     }
-  }
-
-  static get Endorsements() {
-    return _Endorsements;
   }
 }
 
