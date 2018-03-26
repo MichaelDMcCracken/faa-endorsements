@@ -6,12 +6,19 @@ const expect = chai.expect
 const FAAEndorsements = require('../lib/faa-endorsements')
 const Endorsements = FAAEndorsements.Endorsements
 
+// this example title is expected to be correct
+const example_title = 'Pre-solo aeronautical knowledge'
+
 describe('Endorsements',() => {
-  it('has endorsements',() => {
+  it('is an array',() => {
     expect(Endorsements).to.be.a('array')
   })
 
+  it('is a list of Endorsement titles',() => {
+    Endorsements.forEach(en => expect(en).to.be.a('string'))
+  })
+
   it('loads the titles into the endorsements',() => {
-    expect(Endorsements).to.include('Pre-solo aeronautical knowledge')
+    expect(Endorsements).to.include(example_title)
   })
 })

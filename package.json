@@ -6,7 +6,7 @@
   "browser": "dist/faa-endorsements.js",
   "scripts": {
     "test": "node_modules/.bin/mocha tests/*.js",
-    "test:watch": "nodemon --watch src/faa-endorsements.js --watch src/templates/index.js --watch tests/faa-endorsements.js --watch tests/templates.js --watch tests/endorsements.js --exec 'npm run webpack:lib:build && npm run test || true'",
+    "test:watch": "nodemon --watch src/faa-endorsements.js --watch src/templates/index.js --watch tests/faa-endorsements.js --watch tests/templates.js --watch tests/endorsements.js --watch tests/endorsements-templates.js --exec 'npm run webpack:lib:build && npm run test || true'",
     "webpack:lib:build": "node_modules/.bin/webpack --config config/webpack/lib.js",
     "webpack:dist:build": "node_modules/.bin/webpack --config config/webpack/dist.js",
     "webpack:dist:min:build": "MIN=TRUE node_modules/.bin/webpack --config config/webpack/dist.js -p",

@@ -11,110 +11,91 @@ describe('FAAEndorsements()',() => {
     expect(FAAEndorsements).to.be.a('function')
   })
 
-  it('returns an object',() => {
+  it('is a constructor',() => {
     expect(new FAAEndorsements()).to.be.a('object')
   })
 
-  context('#endorsements',() => {
-    it('returns an array',() => {
-      let f = new FAAEndorsements()
-      expect(f.endorsements).to.be.a('array')
-    })
-  })
-
-  context('.getTemplate()',() => {
-    it('finds a template Endorsement title',() => {
-      let en = FAAEndorsements.Endorsements[0]
-      let t = FAAEndorsements.getTemplate(en)
-      expect(t).to.be.an('object')
-      expect(t).to.include.keys('attributes')
-      expect(t.attributes.title).to.eq(en)
+  context('endorsements',() => {
+    context('#addEndorsement()',() => {
+      it('adds endorsements',() => {
+        let f = new FAAEndorsements()
+        let es = FAAEndorsements.Endorsements
+        f.addEndorsement(es[0])
+        expect(f.endorsements[0]).to.eql(es[0])
+      })
     })
 
-    it('fails gracefully if it did not find a template',() => {
-      expect(FAAEndorsements.getTemplate()).to.be.an('undefined')
+    context('the endorsements setter',() => {
+      it('adds an endorsement to the instance',() => {
+        let f = new FAAEndorsements()
+        let es = FAAEndorsements.Endorsements
+        f.endorsements = es
+        es.forEach((en,i) => {
+          expect(f.endorsements[i]).to.eql(es[i])
+        })
+      })
+    })
+
+    context('upon instantiation via the options object',() => {
+      it('adds endorsement',() => {
+        let f = new FAAEndorsements()
+        f.endorsements = [
+          FAAEndorsements.Endorsements[0],
+          FAAEndorsements.Endorsements[2],
+          FAAEndorsements.Endorsements[3],
+        ]
+        let elist = f.endorsements
+        let etlist = _.map(f._endorsementTemplates,en => en.attributes.title)
+        expect(elist).to.eql(etlist)
+      })
     })
   })
 
   context('locals',() => {
-    let f = new FAAEndorsements()
-    f.addEndorsement(FAAEndorsements.Endorsements[0])
-    expect(f.locals).to.be.an('object')
-  })
-
-  context('.addEndorsement()',() => {
-    it('adds an endorsement to the instance',() => {
+    it('merges locals from templates with differing requirements',() => {
       let f = new FAAEndorsements()
-      f.addEndorsement(FAAEndorsements.Endorsements[0])
-      expect(f.endorsements.length).to.be.gt(0)
+      let with_gender = templates_with_gender()
+      let without_gender = templates_without_gender()
+      f.addEndorsement(without_gender[0].attributes.title)
+      expect(f.locals.student).to.not.include.keys('gender')
+      f.addEndorsement(with_gender[0].attributes.title)
+      expect(f.locals.student).to.include.keys('gender')
     })
 
-    it('updates the locals',() => {
+    it('are removed when items that require them are removed from the endorsements list',() => {
       let f = new FAAEndorsements()
-      f.addEndorsement(FAAEndorsements.Endorsements[0])
-      expect(f.locals).to.be.an('object')
-      expect(f.locals).to.include.keys(['date','student','instructor','aircraft'])
-      expect(Object.keys(f.locals).length).to.be.gt(0)
-    })
-  })
-
-  context('custom missing', () => {
-    it('sets a custom missing string',() => {
-      let f = new FAAEndorsements({ missing: 'foo' })
-      f.addEndorsement(FAAEndorsements.Endorsements[0])
-      expect(f.locals.date).to.eq('foo')
-    })
-  })
-
-  it('adds endorsements from options',() => {
-    let f = new FAAEndorsements({
-      endorsements: [
-        FAAEndorsements.Endorsements[0],
-        FAAEndorsements.Endorsements[1],
-      ]
-    })
-    expect(f.locals).to.include.keys(['date','student'])
-  })
-
-  context('when updating endorsements by setting endorsements list',() => {
-    it('endorsements and endorsementTemplates should match',() => {
-      let f = new FAAEndorsements()
-      f.endorsements = [
-        FAAEndorsements.Endorsements[0],
-        FAAEndorsements.Endorsements[2],
-        FAAEndorsements.Endorsements[3],
-      ]
-      let elist = f.endorsements
-      let etlist = _.map(f._endorsementTemplates,en => en.attributes.title)
-      expect(elist).to.eql(etlist)
-    })
-
-    it('works',() => {
-      let f = new FAAEndorsements()
-      f.endorsements = [FAAEndorsements.Endorsements[0]]
-      expect(f.locals).to.include.keys('date')
-      f.endorsements = []
-      expect(f.locals).to.not.include.keys('date')
-    })
-
-    it('locals should update and remove items that are no longer used',() => {
-      let f = new FAAEndorsements()
-      let with_gender = _.filter(FAAEndorsements.Templates,en => {
-        if ( en.attributes.locals.student && en.attributes.locals.student.hasOwnProperty('gender') ) {
-          return true
-        }
-        return false
-      })
-      let without_gender = _.filter(FAAEndorsements.Templates,en => {
-        if ( en.attributes.locals.student && !en.attributes.locals.student.hasOwnProperty('gender') ) {
-          return true
-        }
-        return false
-      })
+      let with_gender = templates_with_gender()
+      let without_gender = templates_without_gender()
       f.endorsements = [with_gender[0].attributes.title]
       expect(f.locals.student).to.include.keys('gender')
       f.endorsements = [without_gender[0].attributes.title]
       expect(f.locals.student).to.not.include.keys('gender')
     })
+
+    context('custom missing', () => {
+      it('sets a custom missing string',() => {
+        let f = new FAAEndorsements({ missing: 'foo' })
+        f.addEndorsement(FAAEndorsements.Endorsements[0])
+        expect(f.locals.date).to.eq('foo')
+      })
+    })
   })
 })
+
+function templates_with_gender() {
+  return _.filter(FAAEndorsements.Templates,en => {
+    if ( en.attributes.locals.student && en.attributes.locals.student.hasOwnProperty('gender') ) {
+      return true
+    }
+    return false
+  })
+}
+
+function templates_without_gender() {
+  return _.filter(FAAEndorsements.Templates,en => {
+    if ( en.attributes.locals.student && !en.attributes.locals.student.hasOwnProperty('gender') ) {
+      return true
+    }
+    return false
+  })
+}
