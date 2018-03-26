@@ -6,11 +6,11 @@ const applyMissingToLocals = require('./lib/apply-missing-to-locals')
 const _Templates = require('./templates')
 const _Endorsements = require('./lib/endorsements')
 
-module.exports = class FAAEndorsements {
+class FAAEndorsements {
   constructor (options={}) {
-    initOptions(this,options)
-    initEndorsements(this)
-    initLocals(this)
+    this._initOptions(options)
+    this._initEndorsements()
+    this._initLocals()
   }
 
   addEndorsement(title) {
@@ -22,12 +22,12 @@ module.exports = class FAAEndorsements {
     else {
       throw new Error(`template ${title} not be found`)
     }
-    prepLocals(this)
+    this._prepLocals()
   }
 
   set endorsements(es) {
     this._endorsements = es
-    change(this)
+    this._change()
     return this._endorsements
   }
 
@@ -48,7 +48,7 @@ module.exports = class FAAEndorsements {
       i = map(this._endorsementTemplates,es => es.attributes.title)
         .indexOf(x)
     }
-    return _render(this,i)
+    return _render(i)
   }
 
   renderAll() {
@@ -71,58 +71,60 @@ module.exports = class FAAEndorsements {
   static get Endorsements() {
     return _Endorsements
   }
-}
 
-function initOptions(self,options) {
-  self.options = options
-  if ( !self.options.missing ) {
-    self.options.missing = null
-  }
-}
-
-function initEndorsements(self) {
-  if ( self.options.hasOwnProperty('endorsements') ) {
-    if ( Array.isArray(self.options.endorsements) )  {
-      self._endorsements = self.options.endorsements
-    }
-    else {
-      throw new Error('endorsements option must be an array')
+  _initOptions(options) {
+    this.options = options
+    if ( !this.options.missing ) {
+      this.options.missing = null
     }
   }
-  prepEndorsements(self)
-}
 
-function prepEndorsements(self) {
-  if ( !self.hasOwnProperty('_endorsements') ) {
-    self._endorsements = []
+  _initEndorsements() {
+    if ( this.options.hasOwnProperty('endorsements') ) {
+      if ( Array.isArray(this.options.endorsements) )  {
+        this._endorsements = this.options.endorsements
+      }
+      else {
+        throw new Error('endorsements option must be an array')
+      }
+    }
+    this._prepEndorsements()
   }
-  let list = self._endorsements
-  self._endorsements = []
-  self._endorsementTemplates = []
-  list.forEach(en => self.addEndorsement(en))
-}
 
-function initLocals(self) {
-  prepLocals(self)
-}
+  _prepEndorsements() {
+    if ( !this.hasOwnProperty('_endorsements') ) {
+      this._endorsements = []
+    }
+    let list = this._endorsements
+    this._endorsements = []
+    this._endorsementTemplates = []
+    list.forEach(en => this.addEndorsement(en))
+  }
 
-function prepLocals(self) {
-  self._locals = {}
+  _initLocals() {
+    this._prepLocals()
+  }
 
-  self._endorsementTemplates.forEach(et => {
-    self._locals = merge(et.attributes.locals,self._locals)
-  })
+  _prepLocals() {
+    this._locals = {}
 
-  if ( self.options.missing ) {
-    applyMissingToLocals(self)
+    this._endorsementTemplates.forEach(et => {
+      this._locals = merge(et.attributes.locals,this._locals)
+    })
+
+    if ( this.options.missing ) {
+      applyMissingToLocals(this)
+    }
+  }
+
+  _change() {
+    this._prepEndorsements()
+    this._prepLocals()
+  }
+
+  _render(i) {
+    return this._endorsementTemplates[i]
   }
 }
 
-function change(self) {
-  prepEndorsements(self)
-  prepLocals(self)
-}
-
-function _render(self,i) {
-  return self._endorsementTemplates[i]
-}
+module.exports = FAAEndorsements
