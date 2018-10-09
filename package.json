@@ -30,11 +30,9 @@
     "babel-loader": "^7",
     "babel-preset-env": "^1",
     "babel-register": "^6.26.0",
-    "chai": "^4",
     "date-fns": "^1.29.0",
     "json-loader": "^0.5.7",
     "lodash": "^4.17.5",
-    "mocha": "^5",
     "nodemon": "^1",
     "to-string-loader": "^1.1.5",
     "uglifyjs-webpack-plugin": "^1",
@@ -44,10 +42,12 @@
   },
   "dependencies": {
     "array-to-object-template": "^1.0.0",
+    "chai": "^4.2.0",
     "handlebars": "^4.0.11",
     "lodash.filter": "^4.6.0",
     "lodash.isobject": "^3.0.2",
     "lodash.map": "^4.6.0",
-    "lodash.merge": "^4.6.1"
+    "lodash.merge": "^4.6.1",
+    "mocha": "^5.2.0"
   }
 }
