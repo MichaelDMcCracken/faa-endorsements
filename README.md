@@ -1,35 +1,20 @@
 # FAA Endorsements
 
-## Usage
+This project is a JavaScript API that implements FAA Endorsements as found in
+AC 61-65G.
 
-```javascript
-const f = new FAAEndorsements()
+## API
 
-// get a list of available endorsements
-console.log(f.Endorsements)
-// => ['Pre-solo knowledge test',...etc]
+The library is an object which has several properties.
 
-console.log(f.locals)
-// => {}
+### `Endorsements`
 
-f.addEndorsement('Pre-solo knowledge test')
+These are the endorsement objects which make up the content of the library.
+These should match the content of the endorsements as found in AC 61-65G. The
+content is convered to an EJS template for rendering. The variables required
+for rendering the template are referred to as locals. A locals object is also
+on the Endorsement.
 
-console.log(f.locals)
-// => {
-//   date: undefined,
-//   student: {
-//     name: undefined,
-//     cert_number: undefined,
-//     gender: undefined
-//   },
-//   instructor: {
-//     name: undefined,
-//     cert_number: undefined,
-//     cert_expiration_date: undefined
-//   },
-//   aircraft: {
-//     make: undefined,
-//     model: undefined
-//   },
-// }
-```
+### `List`
+
+List maps the titles of the available Endorsements to an Array.
