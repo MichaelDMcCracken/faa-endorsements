@@ -22,11 +22,11 @@ locals:
     - route
     - landings_at
 ---
-{{title}}: {{regulation}}.
+<%= title %>: <%= regulation %>.
 
-I have reviewed the cross-country planning of {{student.name}}. I find the planning and preparation to be correct to make the solo flight from {{flight.origin}} to {{flight.origin}} via {{flight.route}} with landings at {{flight.landings_at}} in a
-{{aircraft.make}} {{aircraft.model}} on {{date}}.
+I have reviewed the cross-country planning of <%= student.name %>. I find the planning and preparation to be correct to make the solo flight from <%= flight.origin %> to <%= flight.origin %> via <%= flight.route %> with landings at <%= flight.landings_at %> in a
+<%= aircraft.make %> <%= aircraft.model %> on <%= date %>.
 
-Limitations: {{student.limitations}}
+Limitations: <%= student.limitations %>
 
-{{date}} {{instructor.name}} {{instructor.cert_number}} Exp. {{instructor.cert_expiration}}
+<%= date %> <%= instructor.name %> <%= instructor.cert_number %> Exp. <%= instructor.cert_expiration %>
