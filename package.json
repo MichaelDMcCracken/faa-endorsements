@@ -1,53 +1,30 @@
 {
   "name": "faa-endorsements",
   "version": "1.0.0",
-  "description": "An API implementation of FAA endorsements as found in AC 61-65G.",
-  "main": "lib/faa-endorsements.js",
-  "browser": "dist/faa-endorsements.js",
+  "description": "An API for FAA endorsements as published in AC 61-65G.",
+  "main": "dist/faa-endorsements.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha tests/*.js",
-    "test:watch": "nodemon --watch src/faa-endorsements.js --watch src/endorsements.js --watch src/templates/index.js --watch src/render.js --watch tests/faa-endorsements.js --watch tests/templates.js --watch tests/endorsements.js --watch tests/endorsements-templates.js --exec 'npm run webpack:lib:build && npm run test || true'",
-    "webpack:lib:build": "node_modules/.bin/webpack --config config/webpack/lib.js",
-    "webpack:dist:build": "node_modules/.bin/webpack --config config/webpack/dist.js",
-    "webpack:dist:min:build": "MIN=TRUE node_modules/.bin/webpack --config config/webpack/dist.js -p",
-    "prepare": "npm run webpack:lib:build && npm run webpack:dist:build && npm run webpack:dist:min:build"
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MichaelDMcCracken/faa-endorsements.git"
+    "url": "https://github.com/ryanburnette/faa-endorsements.git"
   },
   "contributors": [
-    "Michael McCracken <michael.mccracken172@gmail.com>",
-    "Ryan Burnette <ryan.burnette@gmail.com>"
+    "Ryan Burnette <ryan.burnette@gmail.com>",
+    "Michael McCracken <michael.mccracken172@gmail.com>"
   ],
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/MichaelDMcCracken/faa-endorsements/issues"
+    "url": "https://github.com/ryanburnette/faa-endorsements/issues"
   },
-  "homepage": "https://github.com/MichaelDMcCracken/faa-endorsements#readme",
+  "homepage": "https://github.com/ryanburnette/faa-endorsements#readme",
   "devDependencies": {
-    "babel-core": "^6",
-    "babel-loader": "^7",
-    "babel-preset-env": "^1",
-    "babel-register": "^6.26.0",
-    "date-fns": "^1.29.0",
-    "json-loader": "^0.5.7",
-    "lodash": "^4.17.5",
-    "nodemon": "^1",
-    "to-string-loader": "^1.1.5",
-    "uglifyjs-webpack-plugin": "^1",
-    "webpack": "^3",
-    "webpack-node-externals": "^1.6.0",
-    "yaml-frontmatter-loader": "^0.1.0"
+    "gray-matter-loader": "0.0.8",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
   },
   "dependencies": {
-    "array-to-object-template": "^1.0.0",
-    "chai": "^4.2.0",
-    "handlebars": "^4.0.11",
-    "lodash.filter": "^4.6.0",
-    "lodash.isobject": "^3.0.2",
-    "lodash.map": "^4.6.0",
-    "lodash.merge": "^4.6.1",
-    "mocha": "^5.2.0"
+    "array-to-object-template": "^1.0.0"
   }
 }
