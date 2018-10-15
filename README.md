@@ -18,3 +18,16 @@ on the Endorsement.
 ### `List`
 
 List maps the titles of the available Endorsements to an Array.
+
+### `makeLocalsObj(endorsements,[locals])`
+
+Pass in an Array of Endorsements and you'll get back a locals object. Include
+an optional `locals` object with existing values to merge that into the
+resultant locals object.
+
+### `render(endorsements,locals)
+
+Render the endorsements. The resulting object will have an Endorsements
+property containing the rendered endorsements. If it has a Validation property,
+the provided locals aren't valid and the validations must be addressed to
+continue rendering.
